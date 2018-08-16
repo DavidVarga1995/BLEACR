@@ -6,9 +6,9 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Label Text="Change between Bluetooth Low Energy Client and Server:"/>
-        <Button x:Name="Client" Text="Client" />
-        <Button x:Name="Server" Text="Server" />
+        <Label x:Name="WriteReceived" Text="Change between Bluetooth Low Energy Client and Server:"/>
+        <Button x:Name="Client" Text="Client" Clicked="OnClientButtonClicked" CornerRadius="30"/>
+        <Button x:Name="Server" Text="Server" Clicked="OnServerButtonClicked" CornerRadius="30"/>
     </StackLayout>
 
 </ContentPage>
