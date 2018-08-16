@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using BLEACR.Server;
+using BLEACR.Client;
 
 namespace BLEACR
 {
@@ -14,14 +15,12 @@ namespace BLEACR
 
         void OnClientButtonClicked(object sender, EventArgs args)
         {
-            var serverActivity = new SetUpServer();
-            serverActivity.SetUpServerActivity(this);
+            SetUpClient serverActivity = new SetUpClient(this);
         }
 
         void OnServerButtonClicked(object sender, EventArgs args)
         {
-            var serverActivity = new SetUpServer();
-            serverActivity.SetUpServerActivity(this);
+            SetUpServer serverActivity = new SetUpServer(this);
         }
 
         public void ReceivedText(string write) { 
@@ -32,6 +31,12 @@ namespace BLEACR
                 });
         }
 
+        public void DeviceFound(string name)
+        {
+
+            Test.Text = name;
+
+        }
 
     }
 }

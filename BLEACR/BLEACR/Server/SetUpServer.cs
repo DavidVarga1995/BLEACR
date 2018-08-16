@@ -11,7 +11,7 @@ namespace BLEACR.Server
         IAdapter adapter;
         IGattServer server;
 
-        public void SetUpServerActivity(MainPage mainPage)
+        public SetUpServer(MainPage mainPage)
         {
 
             adapter = CrossBleAdapter.Current;
