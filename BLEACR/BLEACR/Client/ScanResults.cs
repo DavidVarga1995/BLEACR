@@ -1,8 +1,6 @@
 ﻿using Plugin.BluetoothLE;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace BLEACR.Client
 {
