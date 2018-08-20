@@ -4,7 +4,7 @@
              x:Class="BLEACR.Pages.SettingPage"
              Title="Settings">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="SettingsContent">
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />

@@ -18,8 +18,6 @@ namespace BLEACR.Client
         public SetUpClient(ClientPage clientPage)
         {
 
-            if (MainPage.SDKNumber) { }
-
             ScanConfig sc = new ScanConfig
             {
                 ScanType = BleScanType.LowLatency

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLEACR.Pages;
+using BLEACR.PopUpInterface;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,8 +12,13 @@ namespace BLEACR
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
+        }
+
+        public App(int permission)
+        {
+            InitializeComponent();
+            MainPage = new PermissionPage();
         }
 
         protected override void OnStart()

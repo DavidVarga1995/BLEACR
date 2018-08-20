@@ -1,4 +1,5 @@
 ﻿using BLEACR.Client;
+using BLEACR.PopUpInterface;
 using BLEACR.Server;
 using System;
 using Xamarin.Forms;
@@ -9,12 +10,10 @@ namespace BLEACR.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ClientPage : ContentPage
 	{
-
-
         public ClientPage ()
 		{
 			InitializeComponent ();
-		}
+        }
 
         void OnClientButtonClicked(object sender, EventArgs args)
         {
