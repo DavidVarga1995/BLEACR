@@ -1,7 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using BLEACR.Server;
-using BLEACR.Client;
+﻿using Xamarin.Forms;
 
 namespace BLEACR
 {

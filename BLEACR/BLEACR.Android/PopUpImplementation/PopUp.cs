@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Support.Design.Widget;
 using Android.Widget;
-using BLEACR.Pages;
 using Plugin.CurrentActivity;
 using Xamarin.Forms;
 using BLEACR.PopUpInterface;
@@ -11,11 +10,11 @@ namespace BLEACR.Droid.PopUpImplementation
 {
     class PopUp : IPopUp
     {
-        public void ShowSnackbar(string message)
+        public void ShowSnackbar(string message, int duration)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
             Android.Views.View activityRootView = activity.FindViewById(Android.Resource.Id.Content);
-            Snackbar.Make(activityRootView, message, Snackbar.LengthLong)
+            Snackbar.Make(activityRootView, message, duration)
                 .SetAction("OK", e => {}).Show();
         }
 
