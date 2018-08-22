@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BLEACR.MasterPagePageltem"
+             xmlns:localpages="clr-namespace:BLEACR.Pages"
+             x:Class="BLEACR.Pages.MasterPage"
+             Padding="0,40,0,0"
+			 Icon="menu_icon.png"
+			 Title="Menu">
+    <StackLayout>
+        <ListView x:Name="listView" x:FieldModifier="public">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:MasterDetailPageNavigation}">
+                    <local:MasterDetailPageNavigation 
+                        Title="Client" 
+                        IconSource="client_icon.png" 
+                        TargetType="{x:Type localpages:ClientPage}" 
+                    />
+                    <local:MasterDetailPageNavigation 
+                        Title="Settings" 
+                        IconSource="setting_icon.png" 
+                        TargetType="{x:Type localpages:SettingPage}" 
+                    />
+                    <local:MasterDetailPageNavigation 
+                        Title="About" 
+                        IconSource="about_icon.png" 
+                        TargetType="{x:Type localpages:AboutPage}" 
+                    />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding IconSource}" />
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
