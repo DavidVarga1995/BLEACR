@@ -4,11 +4,12 @@
              xmlns:local="clr-namespace:BLEACR.MasterPagePageltem"
              xmlns:localpages="clr-namespace:BLEACR.Pages"
              x:Class="BLEACR.Pages.MasterPage"
-             Padding="0,40,0,0"
-			 Icon="menu_icon.png"
+             Padding="0,10,0,0"
 			 Title="Menu">
     <StackLayout>
-        <ListView x:Name="listView" x:FieldModifier="public">
+        <ListView x:Name="listView" 
+                  x:FieldModifier="public"
+                  RowHeight="60">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:MasterDetailPageNavigation}">
                     <local:MasterDetailPageNavigation 
@@ -33,11 +34,11 @@
                     <ViewCell>
                         <Grid Padding="5,10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding IconSource}" />
-                            <Label Grid.Column="1" Text="{Binding Title}" />
+                            <Label Grid.Column="1" Text="{Binding Title}" FontSize="Large" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
