@@ -33,9 +33,9 @@ namespace BLEACR.Pages
             });
         }
 
-        public void DeviceFound(string name)
-        {
-            Test.Text = name;
-        }
+        //public void DeviceFound(string name)
+        //{
+        //    Test.Text = name;
+        //}
     }
 }

@@ -7,44 +7,35 @@ namespace BLEACR.Client
     public class ScanResults
     {
 
-        public IDevice Device;
-        public string Name;
-        public bool IsConnected;
-        public Guid Uuid;
-        public int Rssi;
-        public bool IsConnectable;
-        public int ServiceCount;
-        public string ManufacturerData;
-        public string LocalName;
-        public int TxPower;
+        public IDevice Device { get; set; }
+        public string Name { get; set; }
+        public Guid Uuid { get; set; }
+        public int Rssi { get; set; }
+        public bool IsConnectable { get; set; }
+        public int ServiceCount { get; set; }
+        public string ManufacturerData { get; set; }
+        public string LocalName { get; set; }
+        public int TxPower { get; set; }
 
         public ScanResults(IScanResult result)
         {
 
-
-            if (Uuid == Guid.Empty)
-            {
-                Device = result.Device;
-                Uuid = Device.Uuid;
-            }
+            Device = result.Device;
+            Uuid = Device.Uuid;
 
             try
             {
-                if (Uuid == result.Device.Uuid)
-                {
+                Name = Device.Name;
+                Rssi = result.Rssi;
 
-                    Name = result.Device.Name;
-                    Rssi = result.Rssi;
-
-                    var ad = result.AdvertisementData;
-                    ServiceCount = ad.ServiceUuids?.Length ?? 0;
-                    IsConnectable = ad.IsConnectable;
-                    LocalName = ad.LocalName;
-                    TxPower = ad.TxPower;
-                    ManufacturerData = ad.ManufacturerData == null
-                        ? null
-                        : BitConverter.ToString(ad.ManufacturerData);
-                }
+                IAdvertisementData ad = result.AdvertisementData;
+                ServiceCount = ad.ServiceUuids?.Length ?? 0;
+                IsConnectable = ad.IsConnectable;
+                LocalName = ad.LocalName;
+                TxPower = ad.TxPower;
+                ManufacturerData = ad.ManufacturerData == null 
+                    ? null
+                    : BitConverter.ToString(ad.ManufacturerData);
             }
             catch (Exception ex)
             {

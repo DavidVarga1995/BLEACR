@@ -4,7 +4,7 @@ using Plugin.BluetoothLE;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Xamarin.Forms;
 
@@ -15,7 +15,7 @@ namespace BLEACR.Client
         IAdapter adapter;
         IDisposable scan;
 
-        List<ScanResults> devices = new List<ScanResults>();
+        ObservableCollection<ScanResults> devices = new ObservableCollection<ScanResults>();
 
         public int status = 0;
 
@@ -42,8 +42,8 @@ namespace BLEACR.Client
                        .Scan(sc)
                        .Subscribe(scanResults =>
                        {
-                                     OnScanResult(scanResults, clientPage);
-                                 });
+                           OnScanResult(scanResults, clientPage);
+                       });
                 });
                 }
             }
@@ -52,8 +52,22 @@ namespace BLEACR.Client
         void OnScanResult(IScanResult result, ClientPage clientPage)
         {
             ScanResults resultData = new ScanResults(result);
-            devices.Add(resultData);
-            clientPage.DeviceFound(resultData.Name);
+            bool deviceIsOnTheList = false;
+
+            foreach (ScanResults scanResult in devices)
+            {
+
+                if (resultData.Uuid == scanResult.Uuid)
+                {
+                    deviceIsOnTheList = true;
+                }
+            }
+
+            if (deviceIsOnTheList == false)
+            {
+                devices.Add(resultData);
+                //clientPage.DeviceFound(resultData.Name);
+            }
         }
 
         async void RequestPermission(SetUpClient setUpClient)
