@@ -5,29 +5,27 @@ using System;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace BLEACR.Server
 {
-    class SetUpServer
+    public class SetUpServer
     {
-        IAdapter adapter;
-        IGattServer server;
-        public ICommand ToggleServer { get; }
+        private IAdapter adapter;
+        private IGattServer server;
 
         public SetUpServer(ClientPage clientPage)
         {           
             Task tasc = BuildServer(clientPage);
         }
 
-        async Task BuildServer(ClientPage clientPage)
+        private async Task BuildServer(ClientPage clientPage)
         {
             try
             {
                 adapter = CrossBleAdapter.Current;
                 server = await adapter.CreateGattServer();
 
-                var service = server.CreateService(Guid.Parse("A495FF20-C5B1-4B44-B512-1370F02D74DE"), true);
+                Plugin.BluetoothLE.Server.IGattService service = server.CreateService(Guid.Parse("A495FF20-C5B1-4B44-B512-1370F02D74DE"), true);
                 BuildCharacteristics(service, Guid.Parse("A495FF21-C5B1-4B44-B512-1370F02D74D1"), clientPage);
                 BuildCharacteristics(service, Guid.Parse("A495FF22-C5B1-4B44-B512-1370F02D74D2"), clientPage);
                 BuildCharacteristics(service, Guid.Parse("A495FF23-C5B1-4B44-B512-1370F02D74D3"), clientPage);
@@ -35,21 +33,21 @@ namespace BLEACR.Server
                 BuildCharacteristics(service, Guid.Parse("A495FF25-C5B1-4B44-B512-1370F02D74D5"), clientPage);
                 server.AddService(service);
 
-                var characteristic = service.AddCharacteristic
+                Plugin.BluetoothLE.Server.IGattCharacteristic characteristic = service.AddCharacteristic
                 (
                     Guid.NewGuid(),
                     CharacteristicProperties.Read | CharacteristicProperties.Write | CharacteristicProperties.WriteNoResponse,
                     GattPermissions.Read | GattPermissions.Write
                 );
 
-                var notifyCharacteristic = service.AddCharacteristic
+                Plugin.BluetoothLE.Server.IGattCharacteristic notifyCharacteristic = service.AddCharacteristic
                 (
                     Guid.NewGuid(),
                     CharacteristicProperties.Indicate | CharacteristicProperties.Notify,
                     GattPermissions.Read | GattPermissions.Write
                 );
 
-                this.adapter.Advertiser.Start(new AdvertisementData
+                adapter.Advertiser.Start(new AdvertisementData
                 {
                     LocalName = "My GATT"
                 });
@@ -60,7 +58,7 @@ namespace BLEACR.Server
             }
         }
 
-        void BuildCharacteristics(Plugin.BluetoothLE.Server.IGattService service, Guid characteristicId, ClientPage clientPage)
+        private void BuildCharacteristics(Plugin.BluetoothLE.Server.IGattService service, Guid characteristicId, ClientPage clientPage)
         {
             Plugin.BluetoothLE.Server.IGattCharacteristic characteristic = service.AddCharacteristic(characteristicId, 
                 CharacteristicProperties.Notify | CharacteristicProperties.Read |
