@@ -12,16 +12,19 @@ namespace BLEACR.Client
 {
     class SetUpClient
     {
+        private static ObservableCollection<ScanResults> devices = new ObservableCollection<ScanResults>();
+
+        public static ObservableCollection<ScanResults> GetData()
+        {
+            return devices;
+        }
+
         IAdapter adapter;
         IDisposable scan;
-
-        ObservableCollection<ScanResults> devices = new ObservableCollection<ScanResults>();
-
         public int status = 0;
 
         public SetUpClient(ClientPage clientPage)
         {
-
             RequestPermission(this);
 
             if (status == (int)PermissionStatus.Granted)
@@ -56,18 +59,22 @@ namespace BLEACR.Client
 
             foreach (ScanResults scanResult in devices)
             {
-
                 if (resultData.Uuid == scanResult.Uuid)
                 {
                     deviceIsOnTheList = true;
-                }
+                }              
             }
 
             if (deviceIsOnTheList == false)
             {
                 devices.Add(resultData);
-                //clientPage.DeviceFound(resultData.Name);
             }
+
+            //foreach (ScanResults sc in devices)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("{0} {1} {2}", sc.Name ?? "", sc.Uuid.ToString() ?? "", sc.Rssi.ToString() ?? "");
+            //}
+            //System.Diagnostics.Debug.WriteLine("___________________");
         }
 
         async void RequestPermission(SetUpClient setUpClient)
@@ -82,9 +89,6 @@ namespace BLEACR.Client
                 }
             }
             setUpClient.status = (int)await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-
         }
-
     }
 }
-

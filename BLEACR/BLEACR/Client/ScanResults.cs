@@ -17,9 +17,12 @@ namespace BLEACR.Client
         public string LocalName { get; set; }
         public int TxPower { get; set; }
 
+        public string GuiName { get; set; }
+        public string GuiUuid { get; set; }
+        public string GuiRssi { get; set; }
+
         public ScanResults(IScanResult result)
         {
-
             Device = result.Device;
             Uuid = Device.Uuid;
 
@@ -36,6 +39,10 @@ namespace BLEACR.Client
                 ManufacturerData = ad.ManufacturerData == null 
                     ? null
                     : BitConverter.ToString(ad.ManufacturerData);
+
+                GuiName = Name ?? "Name is not supported";
+                GuiRssi = Rssi.ToString() ?? "RSSI is not supported";
+                GuiUuid = Uuid.ToString() ?? "UUID is not supported";
             }
             catch (Exception ex)
             {
