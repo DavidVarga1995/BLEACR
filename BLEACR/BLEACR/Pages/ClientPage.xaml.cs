@@ -15,12 +15,12 @@ namespace BLEACR.Pages
             Content = ClientContent;
         }
 
-        void OnClientButtonClicked(object sender, EventArgs args)
+        private void OnClientButtonClicked(object sender, EventArgs args)
         {
             SetUpClient serverActivity = new SetUpClient(this);
         }
 
-        void OnServerButtonClicked(object sender, EventArgs args)
+        private void OnServerButtonClicked(object sender, EventArgs args)
         {
             SetUpServer serverActivity = new SetUpServer(this);
         }
@@ -33,9 +33,22 @@ namespace BLEACR.Pages
             });
         }
 
-        //public void DeviceFound(string name)
-        //{
-        //    Test.Text = name;
-        //}
+        private void OnSelection(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+            {
+                return;
+            }
+
+            ScanResults selectedScanResult = (ScanResults)e.SelectedItem;
+
+            DisplayAlert("Item Selected", selectedScanResult.GuiName, "Ok");
+            ((ListView)sender).SelectedItem = null;
+        }
+
+        public void DisplayScanIsRunningError()
+        {
+            DisplayAlert("Error", "Scan is running", "Ok");
+        }
     }
 }

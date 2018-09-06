@@ -22,6 +22,7 @@ namespace BLEACR.Client
         IAdapter adapter;
         IDisposable scan;
         public int status = 0;
+        static bool scanIsActive = false;
 
         public SetUpClient(ClientPage clientPage)
         {
@@ -36,18 +37,26 @@ namespace BLEACR.Client
 
                 scan?.Dispose();
                 adapter = CrossBleAdapter.Current;
+                if (!scanIsActive)
+                {
+                    scanIsActive = true;
 
-                if (adapter.Status == AdapterStatus.PoweredOn)
+                    if (adapter.Status == AdapterStatus.PoweredOn)
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                    {
+                        scan = adapter
+                           .Scan(sc)
+                           .Subscribe(scanResults =>
+                           {
+                               OnScanResult(scanResults, clientPage);
+                           });
+                    });
+                    }
+                }
+                else
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                {
-                    scan = adapter
-                       .Scan(sc)
-                       .Subscribe(scanResults =>
-                       {
-                           OnScanResult(scanResults, clientPage);
-                       });
-                });
+                    clientPage.DisplayScanIsRunningError();
                 }
             }
         }

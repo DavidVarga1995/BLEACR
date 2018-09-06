@@ -1,7 +1,7 @@
 ﻿using BLEACR.Client;
 using System.Collections.ObjectModel;
 
-namespace BLEACR.ViewModel
+namespace BLEACR.ClientPageViewModel
 {
     public static class ClientPageViewModel
     {
