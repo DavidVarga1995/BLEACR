@@ -20,9 +20,13 @@ namespace BLEACR.Client
         public string GuiName { get; set; }
         public string GuiUuid { get; set; }
         public string GuiRssi { get; set; }
+        public bool IsRunning { get; set; }
+        public bool IsVisible { get; set; }
 
         public ScanResults(IScanResult result)
         {
+            IsRunning = false;
+            IsVisible = false;
             Device = result.Device;
             Uuid = Device.Uuid;
 

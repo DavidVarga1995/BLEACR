@@ -20,7 +20,7 @@ namespace BLEACR.Client
         }
 
         IAdapter adapter;
-        IDisposable scan;
+        private static IDisposable scan;
         public int status = 0;
         static bool scanIsActive = false;
 
@@ -56,6 +56,8 @@ namespace BLEACR.Client
                 }
                 else
                 {
+                    scan.Dispose();
+                    scanIsActive = false;
                     clientPage.DisplayScanIsRunningError();
                 }
             }

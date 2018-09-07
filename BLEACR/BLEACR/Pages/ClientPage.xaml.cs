@@ -42,13 +42,16 @@ namespace BLEACR.Pages
 
             ScanResults selectedScanResult = (ScanResults)e.SelectedItem;
 
-            DisplayAlert("Item Selected", selectedScanResult.GuiName, "Ok");
+            //DisplayAlert("Item Selected", selectedScanResult.GuiName, "Ok");
             ((ListView)sender).SelectedItem = null;
+            selectedScanResult.IsRunning = true;
+            selectedScanResult.IsVisible = true;
+            SelectedDevice selectedDevice = new SelectedDevice(selectedScanResult);
         }
 
         public void DisplayScanIsRunningError()
         {
-            DisplayAlert("Error", "Scan is running", "Ok");
+            DisplayAlert("Error", "Scan was running - scan has been stopped.", "Ok");
         }
     }
 }
