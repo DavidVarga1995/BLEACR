@@ -9,6 +9,8 @@ namespace BLEACR.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ClientPage : ContentPage
 	{
+        private SelectedDevice selectedDevice;
+
         public ClientPage ()
 		{
 			InitializeComponent ();
@@ -46,7 +48,21 @@ namespace BLEACR.Pages
             ((ListView)sender).SelectedItem = null;
             selectedScanResult.IsRunning = true;
             selectedScanResult.IsVisible = true;
-            SelectedDevice selectedDevice = new SelectedDevice(selectedScanResult);
+
+            System.Collections.Generic.List<Plugin.BLE.Abstractions.Contracts.IDevice> systemDevices = 
+                Plugin.BLE.CrossBluetoothLE.Current.Adapter.GetSystemConnectedOrPairedDevices();
+
+            if ((selectedDevice == null) || (selectedScanResult.Name != selectedDevice.scanResult.Name))
+            {
+                selectedDevice = new SelectedDevice(selectedScanResult);
+            }
+            else if (systemDevices.Contains(selectedDevice.bledevice))
+            {
+                selectedDevice.SendDataToConnectedDevice();
+            }
+            else {
+                selectedDevice = new SelectedDevice(selectedScanResult);
+            }
         }
 
         public void DisplayScanIsRunningError()
