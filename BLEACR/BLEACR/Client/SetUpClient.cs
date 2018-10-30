@@ -1,4 +1,5 @@
-﻿using BLEACR.Pages;
+﻿using Android.Bluetooth;
+using BLEACR.Pages;
 using BLEACR.PopUpInterface;
 using Plugin.BluetoothLE;
 using Plugin.Permissions;
@@ -30,6 +31,12 @@ namespace BLEACR.Client
 
             if (status == (int)PermissionStatus.Granted)
             {
+
+                if (!BluetoothAdapter.DefaultAdapter.IsEnabled)
+                {
+                    BluetoothAdapter.DefaultAdapter.Enable();
+                }
+
                 ScanConfig sc = new ScanConfig
                 {
                     ScanType = BleScanType.LowLatency
