@@ -91,7 +91,7 @@ namespace BLEACR.Client
 
             if(service != null)
             {
-                //await GetNotifications();
+                await GetNotifications();
                 await GetCharacteristic();
             }
         }
@@ -108,9 +108,7 @@ namespace BLEACR.Client
                 };
 
                 await characteristic.StartUpdatesAsync();
-            }
-
-            
+            }         
         }
 
         private async Task GetCharacteristic()
